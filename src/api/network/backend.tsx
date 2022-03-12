@@ -1,9 +1,9 @@
 import Settings from '../../../settings';
-import {Aircraft} from './types';
+import {Airport} from '../../../state/types';
 
 const baseUrl = Settings.BACKEND_URL;
 
-export const useBackend = () => {
+export const Backend = () => {
   const request = (url: string, method = 'GET', params = {}) => {
     url = baseUrl + url;
     let options: any = {
@@ -17,13 +17,12 @@ export const useBackend = () => {
     return fetch(url, options).then(response => response.json());
   };
 
-  const getAircrafts = (): Promise<Aircraft[]> => {
-    return request('aircrafts', 'GET');
+  const getAirports = (): Promise<Airport[]> => {
+    return request('airports', 'GET');
   };
 
   return {
-    api: {
-      getAircrafts,
-    },
+    getAirports,
   };
 };
+// TODO: fix android network error

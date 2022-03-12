@@ -1,10 +1,10 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
-export const FeedScreen = ({}) => {
+export const DetailsScreen = () => {
   return (
     <View style={styles.screen}>
-      <Text>FeedScreen</Text>
+      <Text>Detail Screen</Text>
     </View>
   );
 };
