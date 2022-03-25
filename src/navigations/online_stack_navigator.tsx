@@ -19,7 +19,7 @@ const getNavigatorOptions = (title: string) => {
     headerTitle: title,
     headerBackTitle: ' ',
     // headerTitleStyle: GlobalStackStyle.tabTitle,
-    // headerTintColor: GlobalStackStyle.tabTintColor.color,
+    headerTintColor: 'black',
     headerShown: true,
   });
 };
