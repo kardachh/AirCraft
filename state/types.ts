@@ -19,3 +19,16 @@ export type SelectAirportAction = {
 };
 
 export type AirportAction = SelectAirportAction;
+
+export type Flight = {
+  flight_id: number;
+  flight_no: string;
+  scheduled_departure: string;
+  scheduled_arrival: string;
+  departure_airport: string;
+  arrival_airport: string;
+  status: string;
+  aircraft_code: string;
+  actual_departure: string | null;
+  actual_arrival: string | null;
+};

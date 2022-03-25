@@ -4,6 +4,7 @@ import {Airport} from '../../../state/types';
 import {OnlineNames} from '../../navigations/screens';
 import {CustomButton} from '../../components/custom_button';
 import {storeAirport} from '../../../state/storeAirport';
+import {FlightsList} from '../../components/flights_list';
 
 export const MainScreen = ({navigation}: {navigation: any}) => {
   const [currentAirport, setCurrentAirport] = useState<Airport | null>(null);
@@ -26,10 +27,12 @@ export const MainScreen = ({navigation}: {navigation: any}) => {
         </View>
       </View>
       <View style={styles.line} />
-      {!currentAirport && (
+      {!currentAirport ? (
         <View style={styles.empty}>
           <Text>Чтобы увидеть табло, выберите аэропорт</Text>
         </View>
+      ) : (
+        <FlightsList />
       )}
     </View>
   );
@@ -37,7 +40,7 @@ export const MainScreen = ({navigation}: {navigation: any}) => {
 
 const styles = StyleSheet.create({
   screen: {
-    // flex: 1,
+    flex: 1,
     // justifyContent: 'center',
     // alignItems: 'center',
   },
@@ -51,8 +54,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   empty: {
-    // flex: 1,
-    height: '90%',
+    flex: 1,
+    // height: '90%',
     justifyContent: 'center',
     alignItems: 'center',
   },

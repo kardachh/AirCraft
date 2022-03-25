@@ -5,6 +5,8 @@ import {TrackedScreen} from '../screens/tracked_screen';
 import {TabNames} from './screens';
 import {HelpDeskScreen} from '../screens/helpdesk_screen';
 import {Fly} from '../assets/on_air';
+import {Calendar} from '../assets/calendar';
+import {Helpdesk} from '../assets/helpdesk';
 
 const Tab = createBottomTabNavigator();
 
@@ -17,13 +19,18 @@ export const TabNavigator = () => (
     <Tab.Screen
       name={TabNames.OnlineTable}
       component={OnlineStackNavigator}
-      options={{title: 'Онлайн-табло'}}
+      options={{
+        title: 'Онлайн-табло',
+        tabBarActiveTintColor: 'black',
+        tabBarIcon: ({focused}) => <Calendar color={getIconColor(focused)} />,
+      }}
     />
     <Tab.Screen
       name={TabNames.Tracked}
       component={TrackedScreen}
       options={{
         title: 'Отслеживаемые',
+        tabBarActiveTintColor: 'black',
         tabBarIcon: ({focused}) => <Fly color={getIconColor(focused)} />,
       }}
     />
@@ -32,6 +39,8 @@ export const TabNavigator = () => (
       component={HelpDeskScreen}
       options={{
         title: 'Помощь',
+        tabBarActiveTintColor: 'black',
+        tabBarIcon: ({focused}) => <Helpdesk color={getIconColor(focused)} />,
       }}
     />
   </Tab.Navigator>
