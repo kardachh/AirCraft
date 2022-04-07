@@ -29,6 +29,6 @@ export type Flight = {
   arrival_airport: string;
   status: string;
   aircraft_code: string;
-  actual_departure: string | null;
-  actual_arrival: string | null;
+  actual_departure?: string;
+  actual_arrival?: string;
 };

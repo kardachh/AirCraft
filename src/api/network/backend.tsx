@@ -1,5 +1,5 @@
 import Settings from '../../../settings';
-import {Airport} from '../../../state/types';
+import {Airport, Flight} from '../../types';
 
 const baseUrl = Settings.BACKEND_URL;
 
@@ -21,8 +21,14 @@ export const Backend = () => {
     return request('airports', 'GET');
   };
 
+  const getFlightsByDate = (): Promise<Flight[]> => {
+    // TODO: запрос на текущий день
+    return request('flights', 'GET', {date: "'2022-10-20'"});
+  };
+
   return {
     getAirports,
+    getFlightsByDate,
   };
 };
 // TODO: fix android network error

@@ -1,15 +1,27 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
-import {Airport} from '../../../state/types';
 import {OnlineNames} from '../../navigations/screens';
 import {CustomButton} from '../../components/custom_button';
-import {storeAirport} from '../../../state/storeAirport';
 import {FlightsList} from '../../components/flights_list';
+import {useAppSelector} from '../../redux/hooks';
 
 export const MainScreen = ({navigation}: {navigation: any}) => {
-  const [currentAirport, setCurrentAirport] = useState<Airport | null>(null);
+  const {selectedAirport, airports} = useAppSelector(state => state.online);
+  useEffect(() => {
+    // const {getAirports} = useBackend();
+    // const getInfo = () => {
+    //   getAirports()
+    //     .then(res => {
+    //       let collator = new Intl.Collator();
+    //       res.sort((a, b) => collator.compare(a.airport_name, b.airport_name));
+    //       setAirports(res);
+    //     })
+    //     .catch(err => console.log(`ERROR\n${err}`));
+    // };
+    // getInfo();
+  }, []);
 
-  storeAirport.subscribe(() => setCurrentAirport(storeAirport.getState()));
+  // store.subscribe(() => setCurrentAirport(store.getState()));
 
   return (
     <View style={styles.screen}>
@@ -18,8 +30,8 @@ export const MainScreen = ({navigation}: {navigation: any}) => {
         <View style={styles.currentAirport}>
           <CustomButton
             title={
-              currentAirport
-                ? `${currentAirport.airport_name} (${currentAirport.airport_code})`
+              selectedAirport
+                ? `${selectedAirport.airport_name} (${selectedAirport.airport_code})`
                 : 'Выберите Аэропорт'
             }
             onPress={() => navigation.navigate(OnlineNames.Airports)}
@@ -27,7 +39,7 @@ export const MainScreen = ({navigation}: {navigation: any}) => {
         </View>
       </View>
       <View style={styles.line} />
-      {!currentAirport ? (
+      {!selectedAirport ? (
         <View style={styles.empty}>
           <Text>Чтобы увидеть табло, выберите аэропорт</Text>
         </View>

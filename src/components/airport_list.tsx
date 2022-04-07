@@ -1,38 +1,40 @@
-import React, {FC, useCallback} from 'react';
+import React, {FC, useCallback, useEffect} from 'react';
 import {FlatList, StyleSheet, Text, TouchableOpacity} from 'react-native';
-import {Airport} from '../../state/types';
-import {storeAirport} from '../../state/storeAirport';
-import {AIRPORT_ACTION_TYPES} from '../../state/airport/actions';
+import {Airport} from '../types';
+import {selectAirport, setAirports} from '../redux/store';
+import {useAppDispatch} from '../redux/hooks';
+import {airportsAPI} from '../redux/servises';
 
 type AirportListProps = {
   navigation?: any;
-  route: any;
-  airports: Airport[];
 };
-export const AirportList: FC<AirportListProps> = props => {
+export const AirportList: FC<AirportListProps> = ({navigation}: any) => {
+  const {data} = airportsAPI.useFetchAirportsQuery('');
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(setAirports(data));
+  }, [data, dispatch]);
+
   const renderItem = useCallback(
     ({item}: {item: Airport}) => {
       return (
         <TouchableOpacity
           style={styles.item}
           onPress={() => {
-            // props.changeAirport();
-            storeAirport.dispatch({
-              type: AIRPORT_ACTION_TYPES.SELECT_AIRPORT,
-              airportData: item,
-            });
-            props.navigation.goBack();
+            dispatch(selectAirport(item));
+            navigation.goBack();
           }}>
           <Text>{`${item.airport_name} (${item.airport_code})`}</Text>
         </TouchableOpacity>
       );
     },
-    [props],
+    [dispatch, navigation],
   );
 
   return (
     <FlatList
-      data={props.airports}
+      data={data}
       renderItem={renderItem}
       keyExtractor={item => item.airport_code}
     />
