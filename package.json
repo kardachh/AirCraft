@@ -6,6 +6,7 @@
     "android": "react-native run-android",
     "ios": "react-native run-ios",
     "start": "react-native start",
+    "start_server": "cd ../nodejs-study/backend; npm run dev",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "pod-install": "npx pod-install ios"
@@ -18,6 +19,7 @@
     "moment": "^2.29.1",
     "react": "17.0.2",
     "react-native": "0.66.4",
+    "react-native-calendars": "^1.1282.0",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.10.2",
     "react-native-sqlite-storage": "^6.0.1",

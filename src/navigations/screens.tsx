@@ -10,4 +10,5 @@ export enum OnlineNames {
   'OnlineTable' = 'OnlineTableScreen',
   'Airports' = 'AirportsScreen',
   'Details' = 'DetailsScreen',
+  'Calendar' = 'CalendarScreen',
 }

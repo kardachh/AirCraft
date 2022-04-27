@@ -1,5 +1,5 @@
 import React, {FC, useCallback, useEffect, useState} from 'react';
-import {FlatList, StyleSheet} from 'react-native';
+import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {Flight} from '../types';
 import {FlightItem} from './flight_item';
 import moment from 'moment';
@@ -7,14 +7,15 @@ import {useAppSelector} from '../redux/hooks';
 import {airportsAPI} from '../redux/servises';
 
 type FlightsListProps = {
-  navigation?: any;
-  route?: any;
+  navigation: any;
+  // route?: any;
 };
 
-export const FlightsList: FC<FlightsListProps> = () => {
+export const FlightsList: FC<FlightsListProps> = props => {
   const selectedAirport = useAppSelector(state => state.online.selectedAirport);
+  const selectedDate = useAppSelector(state => state.online.selectedDate);
   const airports = useAppSelector(state => state.online.airports);
-  const {data} = airportsAPI.useFetchFlightsQuery('2022-10-20');
+  const {data} = airportsAPI.useFetchFlightsQuery(`'${selectedDate}'`);
   const [flights, setFlights] = useState<Flight[]>([]);
 
   useEffect(() => {
@@ -24,7 +25,7 @@ export const FlightsList: FC<FlightsListProps> = () => {
           .filter(
             flight =>
               flight.departure_airport === selectedAirport.airport_code ||
-              flight.arrival_airport === selectedAirport.airport_name,
+              flight.arrival_airport === selectedAirport.airport_code,
           )
           .sort(
             (a, b) =>
@@ -37,8 +38,9 @@ export const FlightsList: FC<FlightsListProps> = () => {
 
   const renderItem = useCallback(
     ({item}: {item: Flight}) =>
-      // airport &&
+      // airport && (
       FlightItem({
+        navigation: props.navigation,
         flight: item,
         arrivalAirport: airports.find(
           airport => airport.airport_code === item.arrival_airport,
@@ -47,10 +49,10 @@ export const FlightsList: FC<FlightsListProps> = () => {
           airport => airport.airport_code === item.departure_airport,
         )!,
       }),
-    [airports],
+    [airports, props.navigation],
   );
 
-  return (
+  return flights.length !== 0 ? (
     <FlatList
       style={styles.list}
       data={flights}
@@ -58,11 +60,20 @@ export const FlightsList: FC<FlightsListProps> = () => {
       keyExtractor={item => item.flight_id.toString()}
       refreshing={true}
     />
+  ) : (
+    <View style={styles.text}>
+      <Text>{'На этот день нет рейсов'}</Text>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   list: {
     flex: 1,
+  },
+  text: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

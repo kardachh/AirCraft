@@ -4,11 +4,13 @@ import {DetailsScreen} from '../screens/online/detail_screen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {OnlineNames} from './screens';
 import {AirportsScreen} from '../screens/online/airport_screen';
+import {CalendarScreen} from '../screens/online/calendar_screen';
 
 type RootStackParamList = {
   OnlineTableScreen: undefined;
   DetailsScreen: {userId: string};
   AirportsScreen: {};
+  CalendarScreen: {};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -52,6 +54,11 @@ export const OnlineStackNavigator = () => (
       name={OnlineNames.Details}
       component={DetailsScreen}
       options={getNavigatorOptions('Подробная информация')}
+    />
+    <Stack.Screen
+      name={OnlineNames.Calendar}
+      component={CalendarScreen}
+      options={getNavigatorOptions('Календарь')}
     />
   </Stack.Navigator>
 );

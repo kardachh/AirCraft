@@ -1,33 +1,21 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {OnlineNames} from '../../navigations/screens';
 import {CustomButton} from '../../components/custom_button';
 import {FlightsList} from '../../components/flights_list';
 import {useAppSelector} from '../../redux/hooks';
+import moment from 'moment';
+import 'moment/locale/ru';
+
+moment.locale('ru');
 
 export const MainScreen = ({navigation}: {navigation: any}) => {
-  const {selectedAirport, airports} = useAppSelector(state => state.online);
-  useEffect(() => {
-    // const {getAirports} = useBackend();
-    // const getInfo = () => {
-    //   getAirports()
-    //     .then(res => {
-    //       let collator = new Intl.Collator();
-    //       res.sort((a, b) => collator.compare(a.airport_name, b.airport_name));
-    //       setAirports(res);
-    //     })
-    //     .catch(err => console.log(`ERROR\n${err}`));
-    // };
-    // getInfo();
-  }, []);
-
-  // store.subscribe(() => setCurrentAirport(store.getState()));
-
+  const {selectedAirport, selectedDate} = useAppSelector(state => state.online);
   return (
     <View style={styles.screen}>
-      <View style={styles.selectAirport}>
+      <View style={styles.selectRow}>
         <Text style={styles.normalText}>{'Аэропорт:'}</Text>
-        <View style={styles.currentAirport}>
+        <View style={styles.currentRow}>
           <CustomButton
             title={
               selectedAirport
@@ -38,13 +26,21 @@ export const MainScreen = ({navigation}: {navigation: any}) => {
           />
         </View>
       </View>
-      <View style={styles.line} />
+      <View style={styles.selectRow}>
+        <Text style={styles.normalText}>{'Дата:'}</Text>
+        <View style={styles.currentRow}>
+          <CustomButton
+            title={`${moment(selectedDate, 'YYYY-MM-DD').format('LL')}`}
+            onPress={() => navigation.navigate(OnlineNames.Calendar)}
+          />
+        </View>
+      </View>
       {!selectedAirport ? (
         <View style={styles.empty}>
           <Text>Чтобы увидеть табло, выберите аэропорт</Text>
         </View>
       ) : (
-        <FlightsList />
+        <FlightsList navigation={navigation} />
       )}
     </View>
   );
@@ -59,8 +55,9 @@ const styles = StyleSheet.create({
   line: {
     borderWidth: 1,
   },
-  selectAirport: {
-    padding: 20,
+  selectRow: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -71,7 +68,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  currentAirport: {
+  currentRow: {
     marginLeft: 15,
     flex: 1,
     justifyContent: 'center',

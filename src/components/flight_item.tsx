@@ -2,9 +2,10 @@ import React, {FC} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Airport, Flight} from '../types';
 import moment from 'moment';
-import {useDispatch} from 'react-redux';
+import {OnlineNames} from '../navigations/screens';
 
 type FlightItemProps = {
+  navigation: any;
   flight: Flight;
   departureAirport: Airport;
   arrivalAirport: Airport;
@@ -12,8 +13,11 @@ type FlightItemProps = {
 };
 export const FlightItem: FC<FlightItemProps> = props => {
   // const dispatch = useDispatch();
+  // console.log(props);
   return (
-    <TouchableOpacity style={styles.item} onPress={() => console.log(123)}>
+    <TouchableOpacity
+      style={styles.item}
+      onPress={() => props.navigation.navigate(OnlineNames.Details)}>
       <View style={styles.timeBox}>
         <Text style={styles.time}>
           {moment(props.flight.scheduled_arrival).format('HH:mm')}

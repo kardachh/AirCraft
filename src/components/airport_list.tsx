@@ -1,7 +1,7 @@
 import React, {FC, useCallback, useEffect} from 'react';
 import {FlatList, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {Airport} from '../types';
-import {selectAirport, setAirports} from '../redux/store';
+import {setAirport, setAirports} from '../redux/store';
 import {useAppDispatch} from '../redux/hooks';
 import {airportsAPI} from '../redux/servises';
 
@@ -22,7 +22,7 @@ export const AirportList: FC<AirportListProps> = ({navigation}: any) => {
         <TouchableOpacity
           style={styles.item}
           onPress={() => {
-            dispatch(selectAirport(item));
+            dispatch(setAirport(item));
             navigation.goBack();
           }}>
           <Text>{`${item.airport_name} (${item.airport_code})`}</Text>
