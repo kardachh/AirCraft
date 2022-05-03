@@ -9,19 +9,25 @@ type FlightItemProps = {
   flight: Flight;
   departureAirport: Airport;
   arrivalAirport: Airport;
+  showDate?: boolean;
   onPress?: () => Promise<unknown>;
 };
 export const FlightItem: FC<FlightItemProps> = props => {
-  // const dispatch = useDispatch();
-  // console.log(props);
   return (
     <TouchableOpacity
       style={styles.item}
-      onPress={() => props.navigation.navigate(OnlineNames.Details)}>
+      onPress={() =>
+        props.navigation.navigate(OnlineNames.Details, {flight: props.flight})
+      }>
       <View style={styles.timeBox}>
         <Text style={styles.time}>
           {moment(props.flight.scheduled_arrival).format('HH:mm')}
         </Text>
+        {props.showDate && (
+          <Text style={styles.date}>
+            {moment(props.flight.scheduled_arrival).format('DD/MM/YYYY')}
+          </Text>
+        )}
       </View>
       <View style={styles.line} />
       <View style={styles.airports}>
@@ -49,9 +55,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   time: {
-    fontSize: 24,
+    fontSize: 18,
     fontWeight: 'bold',
     width: 70,
+  },
+  date: {
+    fontSize: 12,
+    color: 'gray',
   },
   line: {
     marginHorizontal: 12,

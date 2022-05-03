@@ -8,6 +8,7 @@ const onlineSlice = createSlice({
     airports: <Airport[]>[],
     selectedAirport: <Airport | null>null,
     selectedDate: `${moment().format('YYYY-MM-DD')}`,
+    favoritesFlights: <number[]>[],
   },
   reducers: {
     setAirports(state, action) {
@@ -19,8 +20,12 @@ const onlineSlice = createSlice({
     setDate(state, action) {
       state.selectedDate = action.payload.dateString;
     },
+    setFavoritesFlights(state, action) {
+      state.favoritesFlights = action.payload;
+    },
   },
 });
 
 export default onlineSlice.reducer;
-export const {setAirport, setAirports, setDate} = onlineSlice.actions;
+export const {setAirport, setAirports, setDate, setFavoritesFlights} =
+  onlineSlice.actions;

@@ -10,14 +10,14 @@ type AirportsScreenProps = {
 
 export const AirportsScreen: FC<AirportsScreenProps> = props => {
   return (
-    <View style={styles.screen}>
+    <View style={styles.screenEmpty}>
       <AirportList navigation={props.navigation} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  screen: {
+  screenEmpty: {
     flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 20,

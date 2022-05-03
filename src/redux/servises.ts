@@ -17,5 +17,11 @@ export const airportsAPI = createApi({
         params: {date: `${date}`},
       }),
     }),
+    fetchFlightInfo: builder.query<Flight[], number[]>({
+      query: flight_id => ({
+        url: `${Settings.INFO_FLIGHT}`,
+        params: {flight_id: `${flight_id}`},
+      }),
+    }),
   }),
 });

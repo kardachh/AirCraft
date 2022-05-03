@@ -12,3 +12,8 @@ export enum OnlineNames {
   'Details' = 'DetailsScreen',
   'Calendar' = 'CalendarScreen',
 }
+
+export enum TrackedNames {
+  'Tracked' = 'TrackedScreen',
+  'Details' = 'DetailsScreen',
+}

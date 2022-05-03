@@ -1,16 +1,12 @@
 import React from 'react';
-import {MainScreen} from '../screens/online/online_screen';
-import {DetailsScreen} from '../screens/detail_screen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {OnlineNames} from './screens';
-import {AirportsScreen} from '../screens/online/airport_screen';
-import {CalendarScreen} from '../screens/online/calendar_screen';
+import {TrackedScreen} from '../screens/tracked_screen';
+import {TrackedNames} from './screens';
+import {DetailsScreen} from '../screens/detail_screen';
 
 type RootStackParamList = {
-  OnlineTableScreen: undefined;
-  DetailsScreen: {userId: string};
-  AirportsScreen: {};
-  CalendarScreen: {};
+  TrackedScreen: undefined;
+  DetailsScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -38,27 +34,17 @@ const getNavigatorOptions = (title: string) => {
 // ),
 // });
 
-export const OnlineStackNavigator = () => (
-  <Stack.Navigator initialRouteName="OnlineTableScreen">
+export const TrackedStackNavigator = () => (
+  <Stack.Navigator initialRouteName="TrackedScreen">
     <Stack.Screen
-      name={OnlineNames.OnlineTable}
-      component={MainScreen}
-      options={getNavigatorOptions('Онлайн-табло')}
+      name={TrackedNames.Tracked}
+      component={TrackedScreen}
+      options={getNavigatorOptions('Отслеживаемые')}
     />
     <Stack.Screen
-      name={OnlineNames.Airports}
-      component={AirportsScreen}
-      options={getNavigatorOptions('Аэропорты')}
-    />
-    <Stack.Screen
-      name={OnlineNames.Details}
+      name={TrackedNames.Details}
       component={DetailsScreen}
       options={getNavigatorOptions('Подробная информация')}
-    />
-    <Stack.Screen
-      name={OnlineNames.Calendar}
-      component={CalendarScreen}
-      options={getNavigatorOptions('Календарь')}
     />
   </Stack.Navigator>
 );

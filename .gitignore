@@ -23,7 +23,6 @@ DerivedData
 
 # Android/IntelliJ
 #
-build/
 .vscode
 .idea
 .gradle
@@ -59,3 +58,5 @@ buck-out/
 
 # CocoaPods
 /ios/Pods/
+
+package-lock.json

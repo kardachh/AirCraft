@@ -1,47 +1,53 @@
 import React, {FC, useCallback, useEffect, useState} from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
-import {Flight} from '../types';
+import {Airport, Flight} from '../types';
 import {FlightItem} from './flight_item';
 import moment from 'moment';
 import {useAppSelector} from '../redux/hooks';
-import {airportsAPI} from '../redux/servises';
 
 type FlightsListProps = {
   navigation: any;
-  // route?: any;
+  selectedAirport?: Airport;
+  flightsData?: Flight[];
+  showDate?: boolean;
 };
 
 export const FlightsList: FC<FlightsListProps> = props => {
-  const selectedAirport = useAppSelector(state => state.online.selectedAirport);
-  const selectedDate = useAppSelector(state => state.online.selectedDate);
   const airports = useAppSelector(state => state.online.airports);
-  const {data} = airportsAPI.useFetchFlightsQuery(`'${selectedDate}'`);
-  const [flights, setFlights] = useState<Flight[]>([]);
+  const [flightsFiltered, setFlightsFiltered] = useState<Flight[]>([]);
 
-  useEffect(() => {
-    if (data && selectedAirport) {
-      setFlights(
-        data
-          .filter(
-            flight =>
-              flight.departure_airport === selectedAirport.airport_code ||
-              flight.arrival_airport === selectedAirport.airport_code,
-          )
-          .sort(
-            (a, b) =>
-              parseInt(moment(a.scheduled_arrival).format('HHmm'), 10) -
-              parseInt(moment(b.scheduled_arrival).format('HHmm'), 10),
-          ),
+  const filterFlights = useCallback(
+    (flights?: Flight[]) => {
+      const newFlights: Flight[] = flights ? [...flights] : [];
+      let filteredFlights = newFlights.sort(
+        (a, b) =>
+          parseInt(moment(a.scheduled_arrival).format('HHmm'), 10) -
+          parseInt(moment(b.scheduled_arrival).format('HHmm'), 10),
       );
-    }
-  }, [data, selectedAirport]);
+      if (props.selectedAirport) {
+        filteredFlights = filteredFlights.filter(flight => {
+          return (
+            flight.departure_airport === props.selectedAirport!.airport_code ||
+            flight.arrival_airport === props.selectedAirport!.airport_code
+          );
+        });
+      }
+      return filteredFlights;
+    },
+    [props.selectedAirport],
+  );
+
+  useEffect(
+    () => setFlightsFiltered(filterFlights(props.flightsData)),
+    [filterFlights, props.flightsData],
+  );
 
   const renderItem = useCallback(
     ({item}: {item: Flight}) =>
-      // airport && (
       FlightItem({
         navigation: props.navigation,
         flight: item,
+        showDate: props.showDate,
         arrivalAirport: airports.find(
           airport => airport.airport_code === item.arrival_airport,
         )!,
@@ -49,13 +55,12 @@ export const FlightsList: FC<FlightsListProps> = props => {
           airport => airport.airport_code === item.departure_airport,
         )!,
       }),
-    [airports, props.navigation],
+    [airports, props.navigation, props.showDate],
   );
-
-  return flights.length !== 0 ? (
+  return flightsFiltered.length !== 0 ? (
     <FlatList
       style={styles.list}
-      data={flights}
+      data={flightsFiltered}
       renderItem={renderItem}
       keyExtractor={item => item.flight_id.toString()}
       refreshing={true}
