@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {Airport, Flight} from '../types';
 import moment from 'moment';
 import {OnlineNames} from '../navigations/screens';
@@ -12,7 +12,48 @@ type FlightItemProps = {
   showDate?: boolean;
   onPress?: () => Promise<unknown>;
 };
+
 export const FlightItem: FC<FlightItemProps> = props => {
+  const getImage = (status: string) => {
+    switch (status) {
+      case 'Arrived': {
+        return require('./../assets/arrived.png');
+      }
+      case 'Departed': {
+        return require('./../assets/departed.png');
+      }
+      case 'Scheduled':
+      case 'On Time': {
+        return require('./../assets/ontime.png');
+      }
+      case 'Cancelled': {
+        return require('./../assets/cancelled.png');
+      }
+      case 'Delayed': {
+        return require('./../assets/delayed.png');
+      }
+    }
+  };
+  const getImageText = (status: string) => {
+    switch (status) {
+      case 'Arrived': {
+        return 'Прибыл';
+      }
+      case 'Departed': {
+        return 'В пути';
+      }
+      case 'Scheduled':
+      case 'On Time': {
+        return 'Вовремя';
+      }
+      case 'Cancelled': {
+        return 'Отменен';
+      }
+      case 'Delayed': {
+        return 'Отложен';
+      }
+    }
+  };
   return (
     <TouchableOpacity
       style={styles.item}
@@ -30,9 +71,28 @@ export const FlightItem: FC<FlightItemProps> = props => {
         )}
       </View>
       <View style={styles.line} />
-      <View style={styles.airports}>
-        <Text>{`${props.departureAirport.airport_name} (${props.departureAirport.airport_code})`}</Text>
-        <Text>{`${props.arrivalAirport.airport_name} (${props.arrivalAirport.airport_code})`}</Text>
+      <View style={styles.airportsView}>
+        <View style={styles.airports}>
+          <Text
+            style={
+              styles.airportsText
+            }>{`${props.departureAirport.airport_name} (${props.departureAirport.airport_code})`}</Text>
+          <Text
+            style={
+              styles.airportsText
+            }>{`${props.arrivalAirport.airport_name} (${props.arrivalAirport.airport_code})`}</Text>
+        </View>
+        <View style={styles.statusView}>
+          <Image
+            style={styles.statusIcon}
+            width={30}
+            height={30}
+            source={getImage(props.flight.status)}
+          />
+          <Text style={styles.statusText}>
+            {getImageText(props.flight.status)}
+          </Text>
+        </View>
       </View>
     </TouchableOpacity>
   );
@@ -50,7 +110,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   timeBox: {
-    // flex: 1,
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -64,13 +124,25 @@ const styles = StyleSheet.create({
     color: 'gray',
   },
   line: {
-    marginHorizontal: 12,
+    marginHorizontal: 7,
     borderWidth: 1,
     borderColor: 'black',
     height: '100%',
   },
+  airportsView: {
+    justifyContent: 'space-between',
+    flex: 3,
+    flexDirection: 'row',
+  },
   airports: {
     flexDirection: 'column',
+    justifyContent: 'space-around',
     fontWeight: 'bold',
   },
+  airportsText: {
+    fontSize: 12,
+  },
+  statusView: {justifyContent: 'center', alignItems: 'center'},
+  statusIcon: {width: 30, height: 30},
+  statusText: {fontSize: 12},
 });
