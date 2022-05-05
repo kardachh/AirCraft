@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {OnlineStackNavigator} from './online_stack_navigator';
 import {TabNames} from './screens';
-import {HelpDeskScreen} from '../screens/helpdesk_screen';
+import {FAQScreen} from '../screens/faq_screen';
 import {Fly} from '../assets/on_air';
 import {Calendar} from '../assets/calendar';
 import {Helpdesk} from '../assets/helpdesk';
@@ -10,6 +10,7 @@ import {TrackedStackNavigator} from './tracked_stack_navigator';
 import {airportsAPI} from '../redux/servises';
 import {useAppDispatch} from '../redux/hooks';
 import {setAirports} from '../redux/store';
+import {HelpStackNavigator} from './help_stack_navigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -47,7 +48,7 @@ export const TabNavigator = () => {
       />
       <Tab.Screen
         name={TabNames.HelpDesk}
-        component={HelpDeskScreen}
+        component={HelpStackNavigator}
         options={{
           title: 'FAQ',
           tabBarActiveTintColor: 'black',

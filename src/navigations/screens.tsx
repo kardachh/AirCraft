@@ -17,3 +17,7 @@ export enum TrackedNames {
   'Tracked' = 'TrackedScreen',
   'Details' = 'DetailsScreen',
 }
+
+export enum HelpNames {
+  'FAQ' = 'FAQScreen',
+}
