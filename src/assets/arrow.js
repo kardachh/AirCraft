@@ -3,8 +3,9 @@ import Svg, {Path} from 'react-native-svg';
 
 const DropdownArrow = props => (
   <Svg
-    width={26}
-    height={13}
+    viewBox="0 0 20 25"
+    width={20}
+    height={15}
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     {...props}>

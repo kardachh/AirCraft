@@ -2,15 +2,14 @@ import React, {useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {OnlineStackNavigator} from './online_stack_navigator';
 import {TabNames} from './screens';
-import {FAQScreen} from '../screens/faq_screen';
 import {Fly} from '../assets/on_air';
 import {Calendar} from '../assets/calendar';
-import {Helpdesk} from '../assets/helpdesk';
 import {TrackedStackNavigator} from './tracked_stack_navigator';
 import {airportsAPI} from '../redux/servises';
 import {useAppDispatch} from '../redux/hooks';
 import {setAirports} from '../redux/store';
 import {HelpStackNavigator} from './help_stack_navigator';
+import FAQ from '../assets/faq';
 
 const Tab = createBottomTabNavigator();
 
@@ -52,7 +51,7 @@ export const TabNavigator = () => {
         options={{
           title: 'FAQ',
           tabBarActiveTintColor: 'black',
-          tabBarIcon: ({focused}) => <Helpdesk color={getIconColor(focused)} />,
+          tabBarIcon: ({focused}) => <FAQ color={getIconColor(focused)} />,
         }}
       />
     </Tab.Navigator>
