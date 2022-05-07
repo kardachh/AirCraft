@@ -7,6 +7,7 @@ import {useAppSelector} from '../../redux/hooks';
 import moment from 'moment';
 import 'moment/locale/ru';
 import {airportsAPI} from '../../redux/servises';
+import {GlobalStyles} from '../../GlobalStyles';
 
 moment.locale('ru');
 
@@ -17,7 +18,7 @@ export const MainScreen = ({navigation}: {navigation: any}) => {
   const {data} = airportsAPI.useFetchFlightsQuery(`'${selectedDate}'`);
   airportsAPI.useFetchFlightInfoQuery(favoritesFlights);
   return (
-    <View style={styles.screenEmpty}>
+    <View style={GlobalStyles.page}>
       <View style={styles.selectRow}>
         <Text style={styles.normalText}>{'Аэропорт:'}</Text>
         <View style={styles.currentRow}>
@@ -56,11 +57,6 @@ export const MainScreen = ({navigation}: {navigation: any}) => {
 };
 
 const styles = StyleSheet.create({
-  screenEmpty: {
-    flex: 1,
-    // justifyContent: 'center',
-    // alignItems: 'center',
-  },
   line: {
     borderWidth: 1,
   },

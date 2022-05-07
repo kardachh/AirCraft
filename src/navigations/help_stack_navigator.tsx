@@ -14,7 +14,6 @@ const getNavigatorOptions = (title: string) => {
     headerTitleAllowFontScaling: true,
     headerTitle: title,
     headerBackTitle: ' ',
-    // headerTitleStyle: GlobalStackStyle.tabTitle,
     headerTintColor: 'black',
     headerShown: true,
   });

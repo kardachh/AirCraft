@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {FlatList, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import DropdownArrow from '../assets/arrow';
+import {GlobalStyles} from '../GlobalStyles';
 
 const DATA = [
   {
@@ -72,7 +73,7 @@ export const FAQScreen = ({}) => {
   );
 
   return (
-    <View>
+    <View style={GlobalStyles.page}>
       <FlatList
         data={DATA}
         renderItem={renderItem}
@@ -83,9 +84,6 @@ export const FAQScreen = ({}) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   item: {
     padding: 20,
     borderBottomWidth: 1,

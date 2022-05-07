@@ -1,6 +1,7 @@
 import React, {FC} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {AirportList} from '../../components/airport_list';
+import {GlobalStyles} from '../../GlobalStyles';
 
 type AirportsScreenProps = {
   // airports: Airport[];
@@ -10,7 +11,7 @@ type AirportsScreenProps = {
 
 export const AirportsScreen: FC<AirportsScreenProps> = props => {
   return (
-    <View style={styles.screenEmpty}>
+    <View style={[GlobalStyles.page, styles.screenEmpty]}>
       <AirportList navigation={props.navigation} />
     </View>
   );

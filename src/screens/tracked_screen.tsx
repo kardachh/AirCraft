@@ -4,6 +4,8 @@ import {FlightsList} from '../components/flights_list';
 import {useAppSelector} from '../redux/hooks';
 import {airportsAPI} from '../redux/servises';
 import {Flight} from '../types';
+import {View} from 'react-native';
+import {GlobalStyles} from '../GlobalStyles';
 
 export const TrackedScreen = ({navigation}: {navigation: any}) => {
   const {createFavoritesTable, getFavorites} = useDB();
@@ -30,10 +32,12 @@ export const TrackedScreen = ({navigation}: {navigation: any}) => {
   }, [createFavoritesTable, getFavorites]);
 
   return (
-    <FlightsList
-      navigation={navigation}
-      flightsData={flights}
-      showDate={true}
-    />
+    <View style={GlobalStyles.page}>
+      <FlightsList
+        navigation={navigation}
+        flightsData={flights}
+        showDate={true}
+      />
+    </View>
   );
 };

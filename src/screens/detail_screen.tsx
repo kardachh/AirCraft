@@ -5,6 +5,7 @@ import {useAppSelector} from '../redux/hooks';
 import {Flight} from '../types';
 import {useDB} from '../api/nativeApi/DatabaseStore';
 import moment from 'moment';
+import {GlobalStyles} from '../GlobalStyles';
 
 type DetailScreenProps = {
   navigation?: any;
@@ -46,7 +47,7 @@ export const DetailsScreen: FC<DetailScreenProps> = props => {
   };
 
   return (
-    <View style={styles.page}>
+    <View style={[GlobalStyles.page, styles.page]}>
       <View style={styles.detailsView}>
         <View style={styles.detailsBlockView}>
           <View style={styles.detailsColumn}>
