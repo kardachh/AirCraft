@@ -35,24 +35,30 @@ export const FlightItem: FC<FlightItemProps> = props => {
     }
   };
   const getImageText = (status: string) => {
+    let statusText;
     switch (status) {
       case 'Arrived': {
-        return 'Прибыл';
+        statusText = 'Прибыл';
+        break;
       }
       case 'Departed': {
-        return 'В пути';
+        statusText = 'В пути';
       }
       case 'Scheduled':
       case 'On Time': {
-        return 'Вовремя';
+        statusText = 'Вовремя';
+        break;
       }
       case 'Cancelled': {
-        return 'Отменен';
+        statusText = 'Отменен';
+        break;
       }
       case 'Delayed': {
-        return 'Отложен';
+        statusText = 'Отложен';
+        break;
       }
     }
+    return statusText;
   };
   return (
     <TouchableOpacity
