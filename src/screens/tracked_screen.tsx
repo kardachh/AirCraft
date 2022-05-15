@@ -4,7 +4,7 @@ import {FlightsList} from '../components/flights_list';
 import {useAppSelector} from '../redux/hooks';
 import {airportsAPI} from '../redux/servises';
 import {Flight} from '../types';
-import {View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {GlobalStyles} from '../GlobalStyles';
 
 export const TrackedScreen = ({navigation}: {navigation: any}) => {
@@ -18,20 +18,20 @@ export const TrackedScreen = ({navigation}: {navigation: any}) => {
    *  отправляется запрос useFetchFlightInfoQuery(favoritesFlights),
    *  который возвращает информацию по запрошенным рейсам (data)
    */
+  console.log('favoritesFlights', favoritesFlights);
 
   useEffect(() => {
-    setFlights(data);
+    // @ts-ignore
+    data && !data.type ? setFlights(data) : setFlights([]);
   }, [data]);
 
   // Создание БД / получение данных
   useEffect(() => {
-    // dropTable();
     createFavoritesTable().then();
     getFavorites().then();
-    // addToFavorites({flight_id: 1337});
   }, [createFavoritesTable, getFavorites]);
 
-  return (
+  return flights && flights.length !== 0 ? (
     <View style={GlobalStyles.page}>
       <FlightsList
         navigation={navigation}
@@ -39,5 +39,24 @@ export const TrackedScreen = ({navigation}: {navigation: any}) => {
         showDate={true}
       />
     </View>
+  ) : (
+    <View style={[GlobalStyles.page, styles.emptyPage]}>
+      <Text style={styles.emptyPageText}>
+        Чтобы добавить отслеживаемые рейсы необходимо на странице
+        {'\n'}
+        <Text style={GlobalStyles.boldText}>"Подробная информация"</Text>
+        {'\n'}нажать на кнопку{'\n'}
+        <Text style={GlobalStyles.boldText}>"Начать отслеживать"</Text>
+      </Text>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  emptyPage: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: '10%',
+  },
+  emptyPageText: {textAlign: 'center'},
+});

@@ -1,6 +1,6 @@
 {
-  "BACKEND_URL": "http://localhost:5000/api/",
-  "AIRPORTS_PATH": "airports",
-  "FLIGHTS_BY_DATE_PATH": "flights",
-  "INFO_FLIGHT": "/info_flight"
+  "BACKEND_URL": "http://localhost:3000/api/",
+  "AIRPORTS_PATH": "getAirports",
+  "FLIGHTS_BY_DATE_PATH": "getFlightsByDate",
+  "INFO_FLIGHT": "getInfoFlight"
 }

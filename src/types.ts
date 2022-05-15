@@ -19,3 +19,9 @@ export type Flight = {
   actual_departure?: string;
   actual_arrival?: string;
 };
+
+export type ErrorResponse = {
+  type: string;
+  msg: string;
+  query: string;
+};

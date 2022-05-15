@@ -5,4 +5,7 @@ export const GlobalStyles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
+  boldText: {
+    fontWeight: 'bold',
+  },
 });

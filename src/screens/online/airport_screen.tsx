@@ -4,7 +4,6 @@ import {AirportList} from '../../components/airport_list';
 import {GlobalStyles} from '../../GlobalStyles';
 
 type AirportsScreenProps = {
-  // airports: Airport[];
   navigation: any;
   route: any;
 };

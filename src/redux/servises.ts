@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import Settings from '../../settings';
-import {Airport, Flight} from '../types';
+import {Airport, ErrorResponse, Flight} from '../types';
 
 export const airportsAPI = createApi({
   reducerPath: 'airportsAPI',
@@ -17,7 +17,7 @@ export const airportsAPI = createApi({
         params: {date: `${date}`},
       }),
     }),
-    fetchFlightInfo: builder.query<Flight[], number[]>({
+    fetchFlightInfo: builder.query<Flight[] | ErrorResponse, number[]>({
       query: flight_id => ({
         url: `${Settings.INFO_FLIGHT}`,
         params: {flight_id: `${flight_id}`},

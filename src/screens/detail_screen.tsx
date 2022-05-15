@@ -19,31 +19,35 @@ export const DetailsScreen: FC<DetailScreenProps> = props => {
   const {flight}: {flight: Flight} = props.route.params;
   const [tracked, setTracked] = useState<boolean>();
 
-  console.log(flight);
-
   useEffect(() => {
     setTracked(favoritesFlights.includes(flight.flight_id));
   }, [favoritesFlights, flight.flight_id]);
 
   const getStatusText = (status: string) => {
+    let statusText;
     switch (status) {
       case 'Arrived': {
-        return 'Прибыл';
+        statusText = 'Прибыл';
+        break;
       }
       case 'Departed': {
-        return 'В пути';
+        statusText = 'В пути';
       }
       case 'Scheduled':
       case 'On Time': {
-        return 'Вовремя';
+        statusText = 'Вовремя';
+        break;
       }
       case 'Cancelled': {
-        return 'Отменен';
+        statusText = 'Отменен';
+        break;
       }
       case 'Delayed': {
-        return 'Отложен';
+        statusText = 'Отложен';
+        break;
       }
     }
+    return statusText;
   };
 
   return (
@@ -85,21 +89,27 @@ export const DetailsScreen: FC<DetailScreenProps> = props => {
             </Text>
           </View>
           <View style={styles.detailsColumn}>
-            <Text style={[styles.hintText, {fontWeight: 'bold'}]}>
+            <Text style={[styles.hintText, GlobalStyles.boldText]}>
               Номер рейса
             </Text>
-            <Text style={[styles.text, {fontWeight: 'bold'}]}>
+            <Text style={[styles.text, GlobalStyles.boldText]}>
               {flight.flight_no}
             </Text>
           </View>
           <View style={styles.detailsColumn}>
             <Text style={styles.hintText}>{'Время вылета\n(фактическое)'}</Text>
-            <Text style={styles.text}>
-              {moment(flight.actual_departure).format('hh:mm')}
-            </Text>
-            <Text style={styles.text}>
-              {moment(flight.actual_departure).format('DD.MM.YYYY')}
-            </Text>
+            {flight.actual_departure ? (
+              <View>
+                <Text style={styles.text}>
+                  {moment(flight.actual_departure).format('hh:mm')}
+                </Text>
+                <Text style={styles.text}>
+                  {moment(flight.actual_departure).format('DD.MM.YYYY')}
+                </Text>
+              </View>
+            ) : (
+              <Text style={styles.detailsEmptyDateText}>Не вылетел</Text>
+            )}
           </View>
         </View>
         <View style={styles.line} />
@@ -117,7 +127,7 @@ export const DetailsScreen: FC<DetailScreenProps> = props => {
           </View>
           <View style={styles.detailsColumn}>
             <Text style={styles.hintText}>Статус рейса</Text>
-            <Text style={[styles.text, {fontWeight: 'bold'}]}>
+            <Text style={[styles.text, GlobalStyles.boldText]}>
               {getStatusText(flight.status)}
             </Text>
           </View>
@@ -125,15 +135,28 @@ export const DetailsScreen: FC<DetailScreenProps> = props => {
             <Text style={styles.hintText}>
               {'Время прилета\n(фактическое)'}
             </Text>
-            <Text style={styles.text}>
-              {moment(flight.actual_arrival).format('hh:mm')}
-            </Text>
-            <Text style={styles.text}>
-              {moment(flight.actual_arrival).format('DD.MM.YYYY')}
-            </Text>
+            {flight.actual_arrival ? (
+              <View>
+                <Text style={styles.text}>
+                  {moment(flight.actual_arrival).format('hh:mm')}
+                </Text>
+                <Text style={styles.text}>
+                  {moment(flight.actual_arrival).format('DD.MM.YYYY')}
+                </Text>
+              </View>
+            ) : (
+              <Text style={styles.detailsEmptyDateText}>
+                {flight.actual_departure ? 'В пути' : 'Не вылетел'}
+              </Text>
+            )}
           </View>
         </View>
       </View>
+      <CustomButton
+        style={styles.schemaButton}
+        title={'Схема самолета'}
+        onPress={() => {}}
+      />
       <CustomButton
         style={styles.trackButton}
         title={tracked ? 'Удалить из отслеживаемых' : 'Начать отслеживать'}
@@ -173,6 +196,9 @@ const styles = StyleSheet.create({
     margin: 10,
     flexDirection: 'column',
   },
+  detailsEmptyDateText: {
+    textAlign: 'center',
+  },
   line: {
     borderWidth: 0.5,
     borderColor: '#909090',
@@ -181,7 +207,12 @@ const styles = StyleSheet.create({
   },
   trackButton: {
     position: 'absolute',
-    bottom: 30,
+    bottom: 20,
+    marginHorizontal: '10%',
+  },
+  schemaButton: {
+    position: 'absolute',
+    bottom: 60,
     marginHorizontal: '10%',
   },
 });

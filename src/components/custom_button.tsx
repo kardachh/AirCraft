@@ -4,7 +4,7 @@ import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 type CustomButtonProps = {
   title: string;
   style?: any;
-  onPress: () => Promise<unknown>;
+  onPress: () => any;
 };
 
 export const CustomButton: FC<CustomButtonProps> = props => {
