@@ -43,6 +43,7 @@ export const FlightItem: FC<FlightItemProps> = props => {
       }
       case 'Departed': {
         statusText = 'В пути';
+        break;
       }
       case 'Scheduled':
       case 'On Time': {

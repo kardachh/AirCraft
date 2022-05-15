@@ -32,6 +32,7 @@ export const DetailsScreen: FC<DetailScreenProps> = props => {
       }
       case 'Departed': {
         statusText = 'В пути';
+        break;
       }
       case 'Scheduled':
       case 'On Time': {
