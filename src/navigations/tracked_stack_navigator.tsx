@@ -3,15 +3,17 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {TrackedScreen} from '../screens/tracked_screen';
 import {TrackedNames} from './screens';
 import {DetailsScreen} from '../screens/detail_screen';
+import {SchemeScreen} from '../screens/scheme_screen';
 
 type RootStackParamList = {
   TrackedScreen: undefined;
   DetailsScreen: undefined;
+  SchemeScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const getNavigatorOptions = (title: string) => {
+const getNavigatorOptions = (title: string, props?: any) => {
   return () => ({
     headerTitleAllowFontScaling: true,
     headerTitle: title,
@@ -19,6 +21,7 @@ const getNavigatorOptions = (title: string) => {
     // headerTitleStyle: GlobalStackStyle.tabTitle,
     headerTintColor: 'black',
     headerShown: true,
+    ...props,
   });
 };
 
@@ -45,6 +48,11 @@ export const TrackedStackNavigator = () => (
       name={TrackedNames.Details}
       component={DetailsScreen}
       options={getNavigatorOptions('Подробная информация')}
+    />
+    <Stack.Screen
+      name={TrackedNames.Scheme}
+      component={SchemeScreen}
+      options={getNavigatorOptions('Схема самолета')}
     />
   </Stack.Navigator>
 );

@@ -5,17 +5,20 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {OnlineNames} from './screens';
 import {AirportsScreen} from '../screens/online/airport_screen';
 import {CalendarScreen} from '../screens/online/calendar_screen';
+import {SchemeScreen} from '../screens/scheme_screen';
+import {Button} from 'react-native';
 
 type RootStackParamList = {
-  OnlineTableScreen: undefined;
+  OnlineTableScreen: {};
   DetailsScreen: {userId: string};
   AirportsScreen: {};
   CalendarScreen: {};
+  SchemeScreen: {};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const getNavigatorOptions = (title: string) => {
+const getNavigatorOptions = (title: string, props?: any) => {
   return () => ({
     headerTitleAllowFontScaling: true,
     headerTitle: title,
@@ -23,6 +26,7 @@ const getNavigatorOptions = (title: string) => {
     // headerTitleStyle: GlobalStackStyle.tabTitle,
     headerTintColor: 'black',
     headerShown: true,
+    ...props,
   });
 };
 
@@ -59,6 +63,19 @@ export const OnlineStackNavigator = () => (
       name={OnlineNames.Calendar}
       component={CalendarScreen}
       options={getNavigatorOptions('Календарь')}
+    />
+    <Stack.Screen
+      name={OnlineNames.Scheme}
+      component={SchemeScreen}
+      options={getNavigatorOptions('Схема самолета', {
+        headerRight: () => (
+          <Button
+            onPress={() => console.log('This is a button!')}
+            title="Info"
+            color="#fff"
+          />
+        ),
+      })}
     />
   </Stack.Navigator>
 );

@@ -9,7 +9,7 @@ type AirportListProps = {
   navigation?: any;
 };
 export const AirportList: FC<AirportListProps> = ({navigation}: any) => {
-  const {data} = airportsAPI.useFetchAirportsQuery('');
+  const {data} = airportsAPI.useFetchAirportsQuery(null);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

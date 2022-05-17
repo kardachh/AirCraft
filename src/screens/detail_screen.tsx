@@ -6,6 +6,7 @@ import {Flight} from '../types';
 import {useDB} from '../api/nativeApi/DatabaseStore';
 import moment from 'moment';
 import {GlobalStyles} from '../GlobalStyles';
+import {OnlineNames} from '../navigations/screens';
 
 type DetailScreenProps = {
   navigation?: any;
@@ -18,7 +19,6 @@ export const DetailsScreen: FC<DetailScreenProps> = props => {
   const {flight}: {flight: Flight} = props.route.params;
   const [tracked, setTracked] = useState<boolean>();
 
-  console.log(flight);
   useEffect(() => {
     setTracked(favoritesFlights.includes(flight.flight_id));
   }, [favoritesFlights, flight.flight_id]);
@@ -150,7 +150,9 @@ export const DetailsScreen: FC<DetailScreenProps> = props => {
       <CustomButton
         style={styles.schemaButton}
         title={'Схема самолета'}
-        onPress={() => {}}
+        onPress={() => {
+          props.navigation.navigate(OnlineNames.Scheme);
+        }}
       />
       <CustomButton
         style={styles.trackButton}

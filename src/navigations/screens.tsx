@@ -11,11 +11,13 @@ export enum OnlineNames {
   'Airports' = 'AirportsScreen',
   'Details' = 'DetailsScreen',
   'Calendar' = 'CalendarScreen',
+  'Scheme' = 'SchemeScreen',
 }
 
 export enum TrackedNames {
   'Tracked' = 'TrackedScreen',
   'Details' = 'DetailsScreen',
+  'Scheme' = 'SchemeScreen',
 }
 
 export enum HelpNames {

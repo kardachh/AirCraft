@@ -18,7 +18,7 @@ const getIconColor = (focused: boolean) => {
 };
 
 export const TabNavigator = () => {
-  const {data} = airportsAPI.useFetchAirportsQuery('');
+  const {data} = airportsAPI.useFetchAirportsQuery(null);
   const dispatch = useAppDispatch();
 
   useEffect(() => {

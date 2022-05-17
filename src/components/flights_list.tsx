@@ -3,7 +3,6 @@ import {FlatList, StyleSheet, Text, View} from 'react-native';
 import {Airport, Flight} from '../types';
 import {FlightItem} from './flight_item';
 import moment from 'moment';
-import {useAppSelector} from '../redux/hooks';
 
 type FlightsListProps = {
   navigation: any;
@@ -13,7 +12,6 @@ type FlightsListProps = {
 };
 
 export const FlightsList: FC<FlightsListProps> = props => {
-  const airports = useAppSelector(state => state.online.airports);
   const [flightsFiltered, setFlightsFiltered] = useState<Flight[]>([]);
 
   const filterFlights = useCallback(
@@ -48,14 +46,8 @@ export const FlightsList: FC<FlightsListProps> = props => {
         navigation: props.navigation,
         flight: item,
         showDate: props.showDate,
-        arrivalAirport: airports.find(
-          airport => airport.airport_code === item.arrival_airport,
-        )!,
-        departureAirport: airports.find(
-          airport => airport.airport_code === item.departure_airport,
-        )!,
       }),
-    [airports, props.navigation, props.showDate],
+    [props.navigation, props.showDate],
   );
   return flightsFiltered.length !== 0 ? (
     <FlatList
