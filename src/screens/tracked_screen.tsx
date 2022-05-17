@@ -6,21 +6,23 @@ import {airportsAPI} from '../redux/servises';
 import {Flight} from '../types';
 import {StyleSheet, Text, View} from 'react-native';
 import {GlobalStyles} from '../GlobalStyles';
+import Loader from '../components/Loader';
 
 export const TrackedScreen = ({navigation}: {navigation: any}) => {
   const {createFavoritesTable, getFavorites} = useDB();
   const {favoritesFlights} = useAppSelector(state => state.online);
   const {data} = airportsAPI.useFetchFlightInfoQuery(favoritesFlights);
   const [flights, setFlights] = useState<Flight[] | undefined>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   /**
    *  при получении favoritesFlights: {flight_id: number}
    *  отправляется запрос useFetchFlightInfoQuery(favoritesFlights),
    *  который возвращает информацию по запрошенным рейсам (data)
    */
-  console.log('favoritesFlights', favoritesFlights);
 
   useEffect(() => {
+    data && setIsLoaded(true);
     // @ts-ignore
     data && !data.type ? setFlights(data) : setFlights([]);
   }, [data]);
@@ -33,6 +35,7 @@ export const TrackedScreen = ({navigation}: {navigation: any}) => {
 
   return flights && flights.length !== 0 ? (
     <View style={GlobalStyles.page}>
+      <Loader isDataLoaded={isLoaded} />
       <FlightsList
         navigation={navigation}
         flightsData={flights}
@@ -41,6 +44,7 @@ export const TrackedScreen = ({navigation}: {navigation: any}) => {
     </View>
   ) : (
     <View style={[GlobalStyles.page, styles.emptyPage]}>
+      <Loader isDataLoaded={isLoaded} />
       <Text style={styles.emptyPageText}>
         Чтобы добавить отслеживаемые рейсы необходимо на странице
         {'\n'}

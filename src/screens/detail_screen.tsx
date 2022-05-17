@@ -14,11 +14,11 @@ type DetailScreenProps = {
 
 export const DetailsScreen: FC<DetailScreenProps> = props => {
   const {addToFavorites, deleteFromFavorites} = useDB();
-  const airports = useAppSelector(state => state.online.airports);
   const {favoritesFlights} = useAppSelector(state => state.online);
   const {flight}: {flight: Flight} = props.route.params;
   const [tracked, setTracked] = useState<boolean>();
 
+  console.log(flight);
   useEffect(() => {
     setTracked(favoritesFlights.includes(flight.flight_id));
   }, [favoritesFlights, flight.flight_id]);
@@ -58,21 +58,13 @@ export const DetailsScreen: FC<DetailScreenProps> = props => {
           <View style={styles.detailsColumn}>
             <Text style={styles.hintText}>Вылет</Text>
             <Text style={styles.text}>
-              {
-                airports.find(
-                  airport => airport.airport_code === flight.departure_airport,
-                )!.airport_name
-              }
+              {`${flight.departure_city}\n(${flight.departure_airport_name})`}
             </Text>
           </View>
           <View style={styles.detailsColumn}>
             <Text style={styles.hintText}>Прилет</Text>
             <Text style={styles.text}>
-              {
-                airports.find(
-                  airport => airport.airport_code === flight.arrival_airport,
-                )!.airport_name
-              }
+              {`${flight.arrival_city}\n(${flight.arrival_airport_name})`}
             </Text>
           </View>
         </View>
@@ -127,7 +119,9 @@ export const DetailsScreen: FC<DetailScreenProps> = props => {
             </Text>
           </View>
           <View style={styles.detailsColumn}>
-            <Text style={styles.hintText}>Статус рейса</Text>
+            <Text style={[styles.hintText, GlobalStyles.boldText]}>
+              Статус рейса
+            </Text>
             <Text style={[styles.text, GlobalStyles.boldText]}>
               {getStatusText(flight.status)}
             </Text>

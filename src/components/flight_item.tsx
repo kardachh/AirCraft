@@ -1,14 +1,12 @@
 import React, {FC} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {Airport, Flight} from '../types';
+import {Flight} from '../types';
 import moment from 'moment';
 import {OnlineNames} from '../navigations/screens';
 
 type FlightItemProps = {
   navigation: any;
   flight: Flight;
-  departureAirport: Airport;
-  arrivalAirport: Airport;
   showDate?: boolean;
   onPress?: () => Promise<unknown>;
 };
@@ -83,11 +81,11 @@ export const FlightItem: FC<FlightItemProps> = props => {
           <Text
             style={
               styles.airportsText
-            }>{`${props.departureAirport.airport_name} (${props.departureAirport.airport_code})`}</Text>
+            }>{`${props.flight.departure_city} (${props.flight.departure_airport})`}</Text>
           <Text
             style={
               styles.airportsText
-            }>{`${props.arrivalAirport.airport_name} (${props.arrivalAirport.airport_code})`}</Text>
+            }>{`${props.flight.arrival_city} (${props.flight.arrival_airport})`}</Text>
         </View>
         <View style={styles.statusView}>
           <Image

@@ -8,7 +8,7 @@ export const airportsAPI = createApi({
     baseUrl: Settings.BACKEND_URL,
   }),
   endpoints: builder => ({
-    fetchAirports: builder.query<Airport[], string>({
+    fetchAirports: builder.query<Airport[], null>({
       query: () => ({url: Settings.AIRPORTS_PATH}),
     }),
     fetchFlights: builder.query<Flight[], string>({
