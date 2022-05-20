@@ -7,6 +7,17 @@ export type Airport = {
   timezone: string;
 };
 
+export type Seat = {
+  aircraft_code: string;
+  seat_no: string;
+  fare_conditions: string;
+};
+
+export type SeatCheck = {
+  flight_id: number;
+  seat_no?: string;
+};
+
 export type Flight = {
   actual_arrival?: string;
   actual_arrival_local?: string;

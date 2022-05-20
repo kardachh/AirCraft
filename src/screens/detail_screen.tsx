@@ -163,6 +163,17 @@ export const DetailsScreen: FC<DetailScreenProps> = props => {
             : () => addToFavorites(flight.flight_id)
         }
       />
+      {flight.status === 'Scheduled' || flight.status === 'On Time' ? (
+        <CustomButton
+          style={styles.checkSeatButton}
+          title={'Проверить доступность мест'}
+          onPress={() => {
+            props.navigation.navigate(OnlineNames.CheckSeat, {flight: flight});
+          }}
+        />
+      ) : (
+        <View />
+      )}
     </View>
   );
 };
@@ -202,14 +213,19 @@ const styles = StyleSheet.create({
     marginVertical: 15,
     marginHorizontal: '20%',
   },
-  trackButton: {
+  checkSeatButton: {
     position: 'absolute',
     bottom: 20,
     marginHorizontal: '10%',
   },
-  schemaButton: {
+  trackButton: {
     position: 'absolute',
     bottom: 60,
+    marginHorizontal: '10%',
+  },
+  schemaButton: {
+    position: 'absolute',
+    bottom: 100,
     marginHorizontal: '10%',
   },
 });

@@ -2,5 +2,7 @@
   "BACKEND_URL": "http://localhost:3000/api/",
   "AIRPORTS_PATH": "getAirports",
   "FLIGHTS_BY_DATE_PATH": "getFlightsByDate",
-  "INFO_FLIGHT": "getInfoFlight"
+  "INFO_FLIGHT": "getInfoFlight",
+  "SEATS": "getSeats",
+  "CHECK_SEAT": "getAvailableSeat"
 }

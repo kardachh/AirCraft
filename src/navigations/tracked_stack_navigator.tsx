@@ -4,11 +4,13 @@ import {TrackedScreen} from '../screens/tracked_screen';
 import {TrackedNames} from './screens';
 import {DetailsScreen} from '../screens/detail_screen';
 import {SchemeScreen} from '../screens/scheme_screen';
+import {CheckSeatScreen} from '../screens/seats_screen';
 
 type RootStackParamList = {
   TrackedScreen: undefined;
   DetailsScreen: undefined;
   SchemeScreen: undefined;
+  CheckSeatScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -18,24 +20,11 @@ const getNavigatorOptions = (title: string, props?: any) => {
     headerTitleAllowFontScaling: true,
     headerTitle: title,
     headerBackTitle: ' ',
-    // headerTitleStyle: GlobalStackStyle.tabTitle,
     headerTintColor: 'black',
     headerShown: true,
     ...props,
   });
 };
-
-// const ScreenNavigationOptions = ({navigation}) => ({
-//   headerShown: true,
-//   headerTitle: 'Профиль',
-// headerTitleStyle: GlobalStackStyle.tabTitle,
-// headerTintColor: GlobalStackStyle.tabTintColor.color,
-// headerRight: () => (
-//   <Notifications
-//     onPress={() => navigation.navigate(NotificationsPageScreen)}
-//   />
-// ),
-// });
 
 export const TrackedStackNavigator = () => (
   <Stack.Navigator initialRouteName="TrackedScreen">
@@ -53,6 +42,11 @@ export const TrackedStackNavigator = () => (
       name={TrackedNames.Scheme}
       component={SchemeScreen}
       options={getNavigatorOptions('Схема самолета')}
+    />
+    <Stack.Screen
+      name={TrackedNames.CheckSeat}
+      component={CheckSeatScreen}
+      options={getNavigatorOptions('Проверка места')}
     />
   </Stack.Navigator>
 );

@@ -6,14 +6,15 @@ import {OnlineNames} from './screens';
 import {AirportsScreen} from '../screens/online/airport_screen';
 import {CalendarScreen} from '../screens/online/calendar_screen';
 import {SchemeScreen} from '../screens/scheme_screen';
-import {Button} from 'react-native';
+import {CheckSeatScreen} from '../screens/seats_screen';
 
 type RootStackParamList = {
-  OnlineTableScreen: {};
-  DetailsScreen: {userId: string};
-  AirportsScreen: {};
-  CalendarScreen: {};
-  SchemeScreen: {};
+  OnlineTableScreen: undefined;
+  DetailsScreen: undefined;
+  AirportsScreen: undefined;
+  CalendarScreen: undefined;
+  SchemeScreen: undefined;
+  CheckSeatScreen: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -29,18 +30,6 @@ const getNavigatorOptions = (title: string, props?: any) => {
     ...props,
   });
 };
-
-// const ScreenNavigationOptions = ({navigation}) => ({
-//   headerShown: true,
-//   headerTitle: 'Профиль',
-// headerTitleStyle: GlobalStackStyle.tabTitle,
-// headerTintColor: GlobalStackStyle.tabTintColor.color,
-// headerRight: () => (
-//   <Notifications
-//     onPress={() => navigation.navigate(NotificationsPageScreen)}
-//   />
-// ),
-// });
 
 export const OnlineStackNavigator = () => (
   <Stack.Navigator initialRouteName="OnlineTableScreen">
@@ -67,15 +56,12 @@ export const OnlineStackNavigator = () => (
     <Stack.Screen
       name={OnlineNames.Scheme}
       component={SchemeScreen}
-      options={getNavigatorOptions('Схема самолета', {
-        headerRight: () => (
-          <Button
-            onPress={() => console.log('This is a button!')}
-            title="Info"
-            color="#fff"
-          />
-        ),
-      })}
+      options={getNavigatorOptions('Схема самолета')}
+    />
+    <Stack.Screen
+      name={OnlineNames.CheckSeat}
+      component={CheckSeatScreen}
+      options={getNavigatorOptions('Схема самолета')}
     />
   </Stack.Navigator>
 );
