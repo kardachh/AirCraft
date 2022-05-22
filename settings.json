@@ -4,5 +4,6 @@
   "FLIGHTS_BY_DATE_PATH": "getFlightsByDate",
   "INFO_FLIGHT": "getInfoFlight",
   "SEATS": "getSeats",
-  "CHECK_SEAT": "getAvailableSeat"
+  "CHECK_SEAT": "getAvailableSeat",
+  "ROUTES": "getRoutes"
 }

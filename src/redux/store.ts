@@ -1,5 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit';
-import {Airport} from '../types';
+import {Airport, Route} from '../types';
 import moment from 'moment';
 
 const onlineSlice = createSlice({
@@ -9,6 +9,9 @@ const onlineSlice = createSlice({
     selectedAirport: <Airport | null>null,
     selectedDate: `${moment().format('YYYY-MM-DD')}`,
     favoritesFlights: <number[]>[],
+    routes: <Route[]>[],
+    fromCity: <Airport | null>null,
+    toCity: <Airport | null>null,
   },
   reducers: {
     setAirports(state, action) {
@@ -23,9 +26,25 @@ const onlineSlice = createSlice({
     setFavoritesFlights(state, action) {
       state.favoritesFlights = action.payload;
     },
+    setRoutes(state, action) {
+      state.routes = action.payload;
+    },
+    setFromCity(state, action) {
+      state.fromCity = action.payload;
+    },
+    setToCity(state, action) {
+      state.toCity = action.payload;
+    },
   },
 });
 
 export default onlineSlice.reducer;
-export const {setAirport, setAirports, setDate, setFavoritesFlights} =
-  onlineSlice.actions;
+export const {
+  setAirport,
+  setAirports,
+  setDate,
+  setFavoritesFlights,
+  setRoutes,
+  setFromCity,
+  setToCity,
+} = onlineSlice.actions;

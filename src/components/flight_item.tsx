@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   time: {
     fontSize: 18,
     fontWeight: 'bold',
-    width: 70,
+    width: 50,
   },
   date: {
     fontSize: 12,

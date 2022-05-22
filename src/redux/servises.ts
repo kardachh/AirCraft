@@ -1,6 +1,6 @@
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
 import Settings from '../../settings';
-import {Airport, ErrorResponse, Flight, Seat, SeatCheck} from '../types';
+import {Airport, ErrorResponse, Flight, Route, Seat, SeatCheck} from '../types';
 
 export const airportsAPI = createApi({
   reducerPath: 'airportsAPI',
@@ -10,6 +10,9 @@ export const airportsAPI = createApi({
   endpoints: builder => ({
     fetchAirports: builder.query<Airport[], null>({
       query: () => ({url: Settings.AIRPORTS_PATH}),
+    }),
+    fetchRoutes: builder.query<Route[], null>({
+      query: () => ({url: Settings.ROUTES}),
     }),
     fetchFlights: builder.query<Flight[], string>({
       query: date => ({

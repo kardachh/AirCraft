@@ -1,14 +1,11 @@
-import React, {FC, useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {FlatList, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {Airport} from '../types';
-import {setAirport, setAirports} from '../redux/store';
+import {setAirport, setAirports, setFromCity, setToCity} from '../redux/store';
 import {useAppDispatch} from '../redux/hooks';
 import {airportsAPI} from '../redux/servises';
 
-type AirportListProps = {
-  navigation?: any;
-};
-export const AirportList: FC<AirportListProps> = ({navigation}: any) => {
+export const AirportList = ({navigation, type}: any) => {
   const {data} = airportsAPI.useFetchAirportsQuery(null);
   const dispatch = useAppDispatch();
 
@@ -22,14 +19,20 @@ export const AirportList: FC<AirportListProps> = ({navigation}: any) => {
         <TouchableOpacity
           style={styles.item}
           onPress={() => {
-            dispatch(setAirport(item));
+            dispatch(
+              type === 'selectAirport'
+                ? setAirport(item)
+                : type === 'from'
+                ? setFromCity(item)
+                : setToCity(item),
+            );
             navigation.goBack();
           }}>
-          <Text>{`${item.airport_name} (${item.airport_code})`}</Text>
+          <Text>{`${item.city}, ${item.airport_name}, ${item.airport_code}`}</Text>
         </TouchableOpacity>
       );
     },
-    [dispatch, navigation],
+    [dispatch, navigation, type],
   );
 
   return (

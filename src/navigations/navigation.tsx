@@ -7,9 +7,11 @@ import {Calendar} from '../assets/calendar';
 import {TrackedStackNavigator} from './tracked_stack_navigator';
 import {airportsAPI} from '../redux/servises';
 import {useAppDispatch} from '../redux/hooks';
-import {setAirports} from '../redux/store';
+import {setAirports, setRoutes} from '../redux/store';
 import {HelpStackNavigator} from './help_stack_navigator';
 import FAQ from '../assets/faq';
+import RoutesIcon from '../assets/routes';
+import {RoutesStackNavigator} from './routes_stack_navigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -18,12 +20,14 @@ const getIconColor = (focused: boolean) => {
 };
 
 export const TabNavigator = () => {
-  const {data} = airportsAPI.useFetchAirportsQuery(null);
+  const {data: dataAirports} = airportsAPI.useFetchAirportsQuery(null);
+  const {data: dataRoutes} = airportsAPI.useFetchRoutesQuery(null);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(setAirports(data));
-  }, [data, dispatch]);
+    dispatch(setAirports(dataAirports));
+    dispatch(setRoutes(dataRoutes));
+  }, [dataAirports, dataRoutes, dispatch]);
 
   return (
     <Tab.Navigator screenOptions={{headerShown: false}}>
@@ -34,6 +38,17 @@ export const TabNavigator = () => {
           title: 'Онлайн-табло',
           tabBarActiveTintColor: 'black',
           tabBarIcon: ({focused}) => <Calendar color={getIconColor(focused)} />,
+        }}
+      />
+      <Tab.Screen
+        name={TabNames.Routes}
+        component={RoutesStackNavigator}
+        options={{
+          title: 'Рейсы',
+          tabBarActiveTintColor: 'black',
+          tabBarIcon: ({focused}) => (
+            <RoutesIcon color={getIconColor(focused)} />
+          ),
         }}
       />
       <Tab.Screen

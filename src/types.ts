@@ -18,6 +18,24 @@ export type SeatCheck = {
   seat_no?: string;
 };
 
+export type Route = {
+  flight_no: string;
+  departure_airport: string;
+  departure_airport_name: string;
+  departure_city: string;
+  arrival_airport: string;
+  arrival_airport_name: string;
+  arrival_city: string;
+  aircraft_code: string;
+  duration: {
+    hours?: number;
+    minutes?: number;
+  };
+  days_of_week: number[];
+  scheduled_departure: string;
+  scheduled_arrival: string;
+};
+
 export type Flight = {
   actual_arrival?: string;
   actual_arrival_local?: string;

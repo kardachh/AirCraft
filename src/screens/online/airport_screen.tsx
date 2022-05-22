@@ -4,14 +4,14 @@ import {AirportList} from '../../components/airport_list';
 import {GlobalStyles} from '../../GlobalStyles';
 
 type AirportsScreenProps = {
-  navigation: any;
-  route: any;
+  navigation?: any;
+  route?: any;
 };
 
 export const AirportsScreen: FC<AirportsScreenProps> = props => {
   return (
     <View style={[GlobalStyles.page, styles.screenEmpty]}>
-      <AirportList navigation={props.navigation} />
+      <AirportList navigation={props.navigation} type={'selectAirport'} />
     </View>
   );
 };

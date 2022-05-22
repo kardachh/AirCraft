@@ -1,6 +1,7 @@
 // tabs
 export enum TabNames {
   'OnlineTable' = 'OnlineTableTab',
+  'Routes' = 'RoutesTab',
   'Tracked' = 'TrackedTab',
   'HelpDesk' = 'HelpDeskTab',
 }
@@ -26,4 +27,10 @@ export enum TrackedNames {
 // faq
 export enum HelpNames {
   'FAQ' = 'FAQScreen',
+}
+
+// routes
+export enum RoutesNames {
+  'Routes' = 'RoutesScreen',
+  'Cities' = 'CitiesScreen',
 }
